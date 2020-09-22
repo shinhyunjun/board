@@ -18,6 +18,7 @@ public class BoardController {
 
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public String search(String title, Model model) throws Exception {
+
         Board board = new Board();
         board.setTitle(title);
 
