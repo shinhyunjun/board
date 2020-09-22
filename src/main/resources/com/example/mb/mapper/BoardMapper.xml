@@ -14,40 +14,40 @@
          SELECT *
          FROM (
          SELECT *,
-         ROW_NUMBER() OVER(ORDER BY board_no ASC) AS RNUM
+         ROW_NUMBER() OVER(ORDER BY boardNo ASC) AS RNUM
          FROM board2) board2
          WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
-        ORDER BY board_no ASC
+        ORDER BY boardNo ASC
     </select>
 
     <select id="listCount" resultType="int">
    <![CDATA[
-      SELECT COUNT(board_no)
+      SELECT COUNT(boardNo)
         FROM board2
-       WHERE board_no > 0
+       WHERE boardNo > 0
    ]]>
    </select>
 
     <select id="read" resultType="Board">
-		SELECT board_no,
+		SELECT boardNo,
 			   title,
 			   content,
 			   writer,
-			   reg_date
+			   regDate
 		  FROM board2
-		 WHERE board_no = #{boardNo}
+		 WHERE boardNo = #{boardNo}
 	</select>
 
 
     <select id="search" resultType="com.example.mb.domain.Board">
         <![CDATA[
-	 	SELECT board_no,
+	 	SELECT boardNo,
 	 		   title,
 	 		   content,
 	 		   writer,
-	 		   reg_date
+	 		   regDate
 	 	  FROM board2
-	     WHERE board_no > 0
+	     WHERE boardNo > 0
 	 	]]>
 
         <if test="title != null and title != ''">
@@ -55,8 +55,8 @@
         </if>
 
         <![CDATA[
-	 	ORDER BY board_no DESC,
-	  		     reg_date DESC
+	 	ORDER BY boardNo DESC,
+	  		     regDate DESC
 	 	]]>
     </select>
 
