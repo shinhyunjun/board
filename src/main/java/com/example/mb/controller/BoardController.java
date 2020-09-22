@@ -1,14 +1,13 @@
 package com.example.mb.controller;
 
 import com.example.mb.domain.Board;
+import com.example.mb.domain.Criteria;
+import com.example.mb.domain.PageMaker;
 import com.example.mb.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/board")
@@ -30,10 +29,16 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public void list(Model model) throws Exception {
+    public void list(Model model, Criteria cri) throws Exception {
         model.addAttribute("board", new Board());
 
-        model.addAttribute("list", service.list());
+        model.addAttribute("list", service.list(cri));
+
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCri(cri);
+        pageMaker.setTotalCount(service.listCount());
+
+        model.addAttribute("pageMaker", pageMaker);
     }
 
   /*  @RequestMapping(value = "/modify", method = RequestMethod.POST)
@@ -80,5 +85,8 @@ public class BoardController {
         return "board/success";
     }
 */
+
+
+
 }
 

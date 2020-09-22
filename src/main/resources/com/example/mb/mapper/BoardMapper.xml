@@ -10,15 +10,23 @@
            VALUES(#{title}, #{content}, #{writer})
     </insert>
 
-    <select id="list" resultType="com.example.mb.domain.Board">
-        <![CDATA[
-
-            select board_no as boardNo, title, content, writer, reg_date
-            from board2
-            where board_no >0
-            order by board_no DESC, reg_date DESC
-        ]]>
+    <select id="list" resultType="com.example.mb.domain.Board" parameterType="Criteria">
+         SELECT *
+         FROM (
+         SELECT *,
+         ROW_NUMBER() OVER(ORDER BY board_no ASC) AS RNUM
+         FROM board2) board2
+         WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+        ORDER BY board_no ASC
     </select>
+
+    <select id="listCount" resultType="int">
+   <![CDATA[
+      SELECT COUNT(board_no)
+        FROM board2
+       WHERE board_no > 0
+   ]]>
+   </select>
 
     <select id="read" resultType="Board">
 		SELECT board_no,
@@ -51,5 +59,9 @@
 	  		     reg_date DESC
 	 	]]>
     </select>
+
+
+
+
 
 </mapper>

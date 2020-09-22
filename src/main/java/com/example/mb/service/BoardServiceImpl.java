@@ -1,6 +1,7 @@
 package com.example.mb.service;
 
 import com.example.mb.domain.Board;
+import com.example.mb.domain.Criteria;
 import com.example.mb.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,8 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public List<Board> list() throws Exception{
-        return mapper.list();
+    public List<Board> list(Criteria cri) throws Exception{
+        return mapper.list(cri);
     }
 
     @Override
@@ -31,5 +32,9 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public Board read(Integer boardNo) throws Exception{
         return mapper.read(boardNo);
+    }
+
+    public int listCount() throws Exception{
+        return mapper.listCount();
     }
 }

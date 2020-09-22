@@ -1,6 +1,7 @@
 package com.example.mb.mapper;
 
 import com.example.mb.domain.Board;
+import com.example.mb.domain.Criteria;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -15,8 +16,12 @@ public interface BoardMapper {
 
    // public void delete(Integer boardNo) throws Exception;
 
-    public List<Board> list() throws Exception;
+    public List<Board> list(Criteria cri) throws Exception;
 
     public List<Board> search(@Param("title")String title) throws Exception;
+
+    public int listCount() throws Exception;
+
+
 }
 
