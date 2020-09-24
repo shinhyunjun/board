@@ -4,11 +4,13 @@ import com.example.mb.domain.Board;
 import com.example.mb.domain.Criteria;
 import com.example.mb.domain.PageMaker;
 import com.example.mb.service.BoardService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@Log
 @Controller
 @RequestMapping("/board")
 public class BoardController {
@@ -31,6 +33,9 @@ public class BoardController {
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public void list(Model model, Criteria cri) throws Exception {
+
+        log.info("list : access to all");
+
         model.addAttribute("board", new Board());
 
         model.addAttribute("list", service.list(cri));
@@ -75,6 +80,7 @@ public class BoardController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public void registerForm(Board board, Model model) throws Exception {
 
+        log.info("list : access to all");
     }
 /*
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
